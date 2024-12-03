@@ -1,0 +1,51 @@
+<div class="container-fluid position-relative nav-bar p-0">
+    <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light shadow-lg py-3 py-lg-0 pl-3 pl-lg-5" style="border-radius: 10px;">
+            <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center">
+                <h1 class="m-0 text-primary" style="font-family: 'Arial Black', sans-serif; font-size: 2.5rem;">
+                    <span class="text-dark">Pack and </span>Go
+                </h1>
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto py-0">
+                    <li class="nav-item">
+                        <a href="{% url 'home' %}" class="nav-link active" style="font-size: 1.1rem; font-weight: 600;">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'tour_list' %}" class="nav-link" style="font-size: 1.1rem; font-weight: 600;">Tour Packages</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a href="{% url 'profile' %}" class="nav-link" style="font-size: 1.1rem; font-weight: 600;">
+                                <i class="fas fa-user"></i> Profile
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'order_history' %}" class="nav-link" style="font-size: 1.1rem; font-weight: 600;">My Booking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'logout' %}" class="btn btn-primary ml-1">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'login' %}" class="btn btn-primary ml-1 mr-2">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'signup' %}" class="btn btn-success ml-1">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
