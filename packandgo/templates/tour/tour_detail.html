@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">{{ tour.name }}</h1>
+
+    <div class="mb-4">
+        <p class="lead">{{ tour.description }}</p>
+        <p><strong>Price per day:</strong> ${{ tour.price_per_day }}</p>
+    </div>
+
+    <h2 class="mb-3">Images</h2>
+    <div class="row mb-4">
+        {% for image in tour.images.all %}
+            <div class="col-md-3 mb-3">
+                <img src="{{ image.image.url }}" alt="Image for {{ tour.name }}" class="img-thumbnail">
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <p class="text-muted">No images available for this tour.</p>
+            </div>
+        {% endfor %}
+    </div>
+{% if user.is_authenticated and user.is_superuser %}
+    <!-- Image Upload Form -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h3 class="card-title">Add Image</h3>
+            <form method="post" enctype="multipart/form-data" class="mt-3">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">Upload Image</button>
+            </form>
+        </div>
+    </div>
+{% endif %}
+
+    <div class="text-center">
+        <a href="{% url 'tour_list' %}" class="btn btn-secondary">Back to Tour List</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">Tour Destinations</h1>
+    <div class="row">
+        {% for tour in tours %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ tour.name }}</h5>
+                        <p class="card-text">{{ tour.description }}</p>
+                        <p class="card-text"><strong>Price per day:</strong> ${{ tour.price_per_day }}</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <a href="{% url 'tour_detail' tour.pk %}" class="btn btn-primary btn-sm">View Details</a>
+                        {% if user.is_authenticated %}
+                        <form action="{% url 'add_to_cart' tour.pk %}" method="POST" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+                        </form>
+                        {% endif %}
+                        {% if user.is_authenticated and user.is_superuser %}
+                        <a href="{% url 'update_tour' tour.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'delete_tour' tour.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if user.is_authenticated and user.is_superuser %}
+    <div class="text-center mt-4">
+        <a href="{% url 'create_tour' %}" class="btn btn-success">Add New Tour</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
