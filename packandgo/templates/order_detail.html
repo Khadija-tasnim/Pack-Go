@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">Order Details</h1>
+    <p><strong>Order ID:</strong> {{ order.id }}</p>
+    <p><strong>Order Date:</strong> {{ order.created_at }}</p>
+    <p><strong>Total Price:</strong> ${{ order.total_price }}</p>
+    <p><strong>Status:</strong> {{ order.status }}</p>
+
+    <h2>Items in Order</h2>
+    <ul>
+        {% for item in order.items %}
+            <li>{{ item.quantity }} x {{ item.tour.name }} - ${{ item.price_per_day }} each</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
